@@ -23,11 +23,11 @@ export interface iData {
 }
 
 const Home: NextPage = () => {
-  const [yearFlag, setYearFlag] = useState(5);
+  const [yearFlag, setYearFlag] = useState<number>(5);
   const [value, setValue] = useState("");
   const [validJson, setValidJson] = useState(true);
   const [pkgNames, setPkgNames] = useState([""]);
-  const [stuffs, setStuffs] = useState([]);
+  const [stuffs, setStuffs] = useState<any>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -45,11 +45,10 @@ const Home: NextPage = () => {
           const diffInYears = diffInMs / (1000 * 60 * 60 * 24 * 365);
           const outDated = diffInYears >= yearFlag;
 
-          let template = { pkgName: pkgName, outDated: outDated };
+          const template = { pkgName: pkgName, outDated: outDated };
           return template;
         })
       );
-      // @ts-ignore
       await setStuffs(sumn);
       setLoading(false);
     };
@@ -67,20 +66,16 @@ const Home: NextPage = () => {
     try {
       json = JSON.parse(value);
     } catch (e) {
-      setValue("Not a valid json input");
       setValidJson(false);
       return;
     }
     setValidJson(true);
-    let dep = json.dependencies;
-    let test = Object.keys(dep);
+    const dep = json.dependencies;
+    const test = Object.keys(dep);
     setPkgNames(test);
   };
 
-  const handleYFChange = (e: {
-    target: { value: SetStateAction<undefined> };
-  }) => {
-    // @ts-ignore
+  const handleYFChange = (e: { target: { value: SetStateAction<number> } }) => {
     setYearFlag(e.target.value);
   };
 
@@ -147,8 +142,7 @@ const Home: NextPage = () => {
                     m-0
                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
       "
-                  // @ts-ignore
-                  onChange={handleYFChange}
+                  onChange={() => handleYFChange}
                   value={yearFlag}
                 />
               </div>

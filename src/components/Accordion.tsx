@@ -7,7 +7,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MyCard from "./MyCard";
 
 export default function SimpleAccordion({ stuffs }: any) {
-  console.log(stuffs);
   return (
     <div className="w-full">
       <Accordion>
