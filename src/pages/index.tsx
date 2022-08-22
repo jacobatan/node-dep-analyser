@@ -71,8 +71,9 @@ const Home: NextPage = () => {
     }
     setValidJson(true);
     const dep = json.dependencies;
-    const test = Object.keys(dep);
-    setPkgNames(test);
+    const devDep = json.devDependencies;
+    const arr = Object.keys(devDep).concat(Object.keys(dep));
+    setPkgNames(arr);
   };
 
   const handleYFChange = (e: { target: { value: SetStateAction<number> } }) => {
