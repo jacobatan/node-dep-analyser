@@ -2,6 +2,25 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { SetStateAction, useState, Dispatch, useEffect } from "react";
 import Accordion from "../components/Accordion";
+export interface iData {
+  _id?: any;
+  _rev?: string;
+  name?: any;
+  description?: string;
+  "dist-tags"?: any;
+  versions?: any;
+  readme?: string;
+  maintainers?: any;
+  time: { [key: string]: Date };
+  author?: any;
+  repository?: any;
+  users?: { [key: string]: boolean };
+  homepage?: string;
+  keywords?: any;
+  bugs?: any;
+  readmeFilename?: string;
+  license?: any;
+}
 
 const Home: NextPage = () => {
   const [yearFlag, setYearFlag] = useState(5);
@@ -17,13 +36,12 @@ const Home: NextPage = () => {
       const sumn = await Promise.all(
         pkgNames.map(async (pkgName) => {
           const res = await fetch(`https://registry.npmjs.org/${pkgName}`);
-          const json = await res.json();
-          const time = Object.values(json.time).pop();
-          // @ts-ignore
+          const json: iData = await res.json();
+          let time = new Date();
+          time = Object.values(json.time).pop() as Date;
           const date = new Date(time).toISOString().slice(0, 10);
-          let today = new Date().toISOString().slice(0, 10);
-          // @ts-ignore
-          const diffInMs: any = new Date(today) - new Date(date);
+          const today = new Date().toISOString().slice(0, 10);
+          const diffInMs = new Date(today).getTime() - new Date(date).getTime();
           const diffInYears = diffInMs / (1000 * 60 * 60 * 24 * 365);
           const outDated = diffInYears >= yearFlag;
 
