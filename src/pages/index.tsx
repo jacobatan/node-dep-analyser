@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { SetStateAction, useState, Dispatch, useEffect } from "react";
 import Accordion from "../components/Accordion";
+import CircularProgress from "@mui/material/CircularProgress";
 export interface iData {
   _id?: any;
   _rev?: string;
@@ -69,6 +70,7 @@ const Home: NextPage = () => {
       setValidJson(false);
       return;
     }
+    // setStuffs([]);
     setValidJson(true);
     const dep = json.dependencies;
     const devDep = json.devDependencies;
@@ -161,11 +163,7 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        {stuffs.length !== 0 ? (
-          <Accordion stuffs={stuffs} />
-        ) : (
-          loading && <div>loading</div>
-        )}
+        {loading ? <CircularProgress /> : <Accordion stuffs={stuffs} />}
       </main>
     </>
   );
