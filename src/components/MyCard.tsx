@@ -15,7 +15,7 @@ export default function MyCard({ word }: any) {
   return (
     <Box className="flex justify-between w-full">
       <Typography variant="body1" className="w-full">
-        📙 {word}
+        - {word}
       </Typography>
     </Box>
   );
